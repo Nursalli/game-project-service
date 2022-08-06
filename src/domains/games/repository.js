@@ -21,4 +21,14 @@ module.exports = {
       viewCount: updatedGame.viewCount,
     };
   },
+  addPlayCount: async (id) => {
+    const updatedGame = await Game.findOne({ where: id });
+    updatedGame.playCount += 1;
+    updatedGame.save();
+
+    return {
+      id: updatedGame.id,
+      playCount: updatedGame.playCount,
+    };
+  },
 };

@@ -14,4 +14,10 @@ module.exports = {
 
     res.json(response);
   },
+  addPlayCount: async (req, res) => {
+    const game = await gameRepository.addPlayCount(Number(req.params.id));
+    const response = new SuccessResponse('Success Update Play Count', game);
+
+    res.json(response);
+  },
 };
