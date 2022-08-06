@@ -26,4 +26,12 @@ module.exports = {
       password: z.string(),
     }),
   }),
+
+  getMyBio: z.object({
+    params: z.object({
+      userId: z.string(),
+    }),
+    query: z.object({}).nullish(),
+    body: z.object({}).nullish(),
+  }),
 };
