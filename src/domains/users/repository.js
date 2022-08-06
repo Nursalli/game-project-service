@@ -80,16 +80,6 @@ module.exports = {
   },
 
   getMyBio: async (playerId) => {
-    const userExist = await User.findOne({
-      where: {
-        id: playerId,
-      },
-    });
-
-    if (!userExist) {
-      throw new AppError('User Not Found', 400);
-    }
-
     const user = await User.findOne({
       where: {
         id: playerId,
@@ -98,6 +88,10 @@ module.exports = {
       raw: true,
       include: ['biodata'],
     });
+
+    if (!user) {
+      throw new AppError('User Not Found', 404);
+    }
 
     const userBiodata = {
       id: user.id,
