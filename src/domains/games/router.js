@@ -9,6 +9,7 @@ const gameController = require('./controller');
 
 const routes = {
   'GET: /': [authentication, authorization(['Player', 'Admin']), validation(gameValidator.list), gameController.list],
+  'POST: /view-count/:id': [gameController.addViewCount],
 };
 
 buildRoutes(gamesRouter, routes);
