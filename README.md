@@ -1,11 +1,13 @@
-# Mock Platinum Service
+# Game Project Service
 
 ## DB Schema
+
 Below is the database schema of this service:
 
 ![](./dbschema.png)
 
 ## Setup
+
 Set up your `.env` file align with `.env.sample` given
 
 ```.env
@@ -14,11 +16,13 @@ APP_PORT=3010
 DB_CONNECTION_STRING=mysql://user:password@localhost:3306/db_name
 INITIAL_ADMIN_PASSWORD=admin123
 BCRYPT_SALT=8
+JWT_SECRET_KEY=somesecret
 ```
 
 ## Install
+
 ```sh
-$ yarn 
+$ yarn
 # or
 $ npm install
 ```
@@ -49,4 +53,4 @@ NodeJS: v16.13.1
 
 - Gregorius Ferry
 - Muhammad Nursalli
-- Irvan Ariyanto 
+- Irvan Ariyanto
