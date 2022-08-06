@@ -1,11 +1,11 @@
 module.exports = {
-  async up (queryInterface, Sequelize) {
+  async up(queryInterface, Sequelize) {
     await queryInterface.createTable('users_roles', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
       },
       userId: {
         allowNull: false,
@@ -28,12 +28,11 @@ module.exports = {
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
         field: 'role_id',
-      }
+      },
     });
-
   },
 
-  async down (queryInterface, Sequelize) {
+  async down(queryInterface, Sequelize) {
     await queryInterface.dropTable('users_roles');
-  }
+  },
 };

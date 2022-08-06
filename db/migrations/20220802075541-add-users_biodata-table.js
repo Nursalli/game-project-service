@@ -1,11 +1,11 @@
 module.exports = {
-  async up (queryInterface, Sequelize) {
+  async up(queryInterface, Sequelize) {
     await queryInterface.createTable('users_biodata', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
       },
       userId: {
         allowNull: false,
@@ -29,12 +29,11 @@ module.exports = {
       birthday: {
         allowNull: true,
         type: Sequelize.DATE,
-      }
+      },
     });
-
   },
 
-  async down (queryInterface, Sequelize) {
+  async down(queryInterface, Sequelize) {
     await queryInterface.dropTable('users_biodata');
-  }
+  },
 };

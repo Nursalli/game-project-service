@@ -34,43 +34,46 @@ module.exports = (sequelize, DataTypes) => {
       // biodata
       this.hasOne(models.UserBiodata, {
         foreignKey: 'user_id',
-        as: 'biodata'
+        as: 'biodata',
       });
-    };
+    }
   }
 
-  User.init({
-    id: {
-      allowNull: false,
-      autoIncrement: true,
-      primaryKey: true,
-      type: DataTypes.INTEGER,
+  User.init(
+    {
+      id: {
+        allowNull: false,
+        autoIncrement: true,
+        primaryKey: true,
+        type: DataTypes.INTEGER,
+      },
+      firstName: {
+        allowNull: false,
+        type: DataTypes.STRING(50),
+        field: 'first_name',
+      },
+      lastName: {
+        allowNull: true,
+        type: DataTypes.STRING(50),
+        field: 'last_name',
+      },
+      email: {
+        allowNull: false,
+        unique: true,
+        type: DataTypes.STRING(50),
+      },
+      password: {
+        allowNull: false,
+        type: DataTypes.TEXT,
+      },
     },
-    firstName: {
-      allowNull: false,
-      type: DataTypes.STRING(50),
-      field: 'first_name'
-    },
-    lastName: {
-      allowNull: true,
-      type: DataTypes.STRING(50),
-      field: 'last_name'
-    },
-    email: {
-      allowNull: false,
-      unique: true,
-      type: DataTypes.STRING(50),
-    },
-    password: {
-      allowNull: false,
-      type: DataTypes.TEXT,
-    },
-  }, {
-    sequelize,
-    modelName: 'User',
-    tableName: 'users',
-    timestamps: false
-  });
+    {
+      sequelize,
+      modelName: 'User',
+      tableName: 'users',
+      timestamps: false,
+    }
+  );
 
   return User;
-}
+};

@@ -49,6 +49,21 @@ Or you can run in vscode debug mode by pressing `F5`.
 
 NodeJS: v16.13.1
 
+## Setup Prettier
+
+Installation
+
+1. Click on the extensions icon in VS Code
+2. Search for `prettier`
+3. You will see the extension from Prettier
+4. Click on the install button
+Hit the Reload button or restart the VS Code, once the extension is installed
+
+Usage
+
+1. To automatically format the file on save, In Visual Studio Code, press `Control + Shift + P` or `Command + Shift + P (Mac)` to open the command palette and type setting and then select Preferences: Open User Settings option.
+2. Search for format on save setting and check the checkbox.
+
 ## Author
 
 - Gregorius Ferry
