@@ -1,7 +1,7 @@
 const bcrypt = require('bcryptjs');
 const { UniqueConstraintError } = require('sequelize');
 
-const { User, UserRole } = require('../../../db/models');
+const { User, UserRole, GameHistory } = require('../../../db/models');
 const { AppError } = require('../../utils/error');
 
 module.exports = {
@@ -51,5 +51,31 @@ module.exports = {
     }
 
     return userIsExist;
+  },
+
+  getMyHistories: async (playerId) => {
+    const gameHistories = await GameHistory.findAll({
+      where: {
+        player_id: playerId,
+      },
+      order: [['played_at', 'DESC']],
+      limit: 30,
+      attributes: ['points_earned', 'played_at', 'status'],
+      raw: true,
+      include: ['game'],
+    });
+
+    const myHistories = gameHistories.map(function (gameHistory) {
+      const myHistory = {
+        gameName: gameHistory['game.title'],
+        gameThumbnail: gameHistory['game.thumbnail'],
+        pointsEarned: gameHistory.points_earned,
+        playedAt: gameHistory.played_at,
+        status: gameHistory.status,
+      };
+      return myHistory;
+    });
+
+    return myHistories;
   },
 };

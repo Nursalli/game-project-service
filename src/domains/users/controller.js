@@ -43,4 +43,14 @@ module.exports = {
 
     res.json(response);
   },
+
+  getMyHistories: async (req, res) => {
+    const playerId = req.user.id;
+
+    const result = await userRepository.getMyHistories(playerId);
+
+    const response = new SuccessResponse('Success List My Games', result);
+
+    res.json(response);
+  },
 };

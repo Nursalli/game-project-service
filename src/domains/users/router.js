@@ -29,6 +29,7 @@ const routes = {
       });
     },
   ],
+  'GET: /my-histories': [authentication, authorization(['Admin', 'Player']), userController.getMyHistories],
 };
 
 buildRoutes(usersRouter, routes);

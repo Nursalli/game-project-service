@@ -1,5 +1,13 @@
 module.exports = (sequelize, DataTypes) => {
-  class GameHistory extends require('sequelize').Model {}
+  class GameHistory extends require('sequelize').Model {
+    static associate(models) {
+      // game
+      this.belongsTo(models.Game, {
+        foreignKey: 'game_id',
+        as: 'game',
+      });
+    }
+  }
 
   GameHistory.init(
     {
