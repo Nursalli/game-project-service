@@ -60,6 +60,8 @@ module.exports = {
     const result = await userRepository.getMyBio(playerId);
 
     const response = new SuccessResponse("Success Get user's biodata", result);
+    
+    res.json(response);
   },
   
   getMyGames: async (req, res) => {
