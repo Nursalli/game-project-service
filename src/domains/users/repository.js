@@ -80,6 +80,16 @@ module.exports = {
   },
 
   getMyBio: async (playerId) => {
+    const userExist = await User.findOne({
+      where: {
+        id: playerId,
+      },
+    });
+
+    if (!userExist) {
+      throw new AppError('User Not Found', 400);
+    }
+
     const user = await User.findOne({
       where: {
         id: playerId,
@@ -101,7 +111,7 @@ module.exports = {
 
     return userBiodata;
   },
-  
+
   getMyGames: async (playerId) => {
     const gameHistories = await GameHistory.findAll({
       where: {
