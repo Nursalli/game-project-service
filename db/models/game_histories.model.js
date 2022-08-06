@@ -30,10 +30,10 @@ module.exports = (sequelize, DataTypes) => {
       onDelete: 'CASCADE',
       field: 'game_id',
     },
-    isWin: {
+    status: {
       allowNull: false,
-      type: DataTypes.BOOLEAN,
-      field: 'is_win',
+      type: DataTypes.ENUM('LOSE', 'WIN', 'DRAW'),
+      field: 'status',
     },
     pointsEarned: {
       allowNull: false,
