@@ -101,4 +101,40 @@ module.exports = {
 
     return userBiodata;
   },
+  
+  getMyGames: async (playerId) => {
+    const gameHistories = await GameHistory.findAll({
+      where: {
+        player_id: playerId,
+      },
+      attributes: ['points_earned', 'played_at', 'status'],
+      raw: true,
+      include: ['game'],
+    });
+
+    const uniqGame = [];
+    for (let history of gameHistories) {
+      const isGamePushed = uniqGame.findIndex((r) => r['game.id'] === history['game.id']);
+
+      if (isGamePushed < 0) {
+        uniqGame.push(history);
+      } else {
+        uniqGame[isGamePushed].points_earned += history.points_earned;
+      }
+    }
+
+    const myGames = uniqGame.map(function (game) {
+      const myGame = {
+        gameName: game['game.title'],
+        gameThumbnail: game['game.thumbnail'],
+        totalPointsEarned: game.points_earned,
+        gameUrl: game['game.gameUrl'],
+      };
+      return myGame;
+    });
+
+    myGames.sort((a, b) => b.totalPointsEarned - a.totalPointsEarned);
+
+    return myGames;
+  },
 };

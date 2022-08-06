@@ -17,6 +17,7 @@ const routes = {
     userController.getMyBio,
   ],
   'GET: /my-histories': [authentication, authorization(['Admin', 'Player']), userController.getMyHistories],
+  'GET: /my-games': [authentication, authorization(['Admin', 'Player']), userController.getMyGames],
 };
 
 buildRoutes(usersRouter, routes);
