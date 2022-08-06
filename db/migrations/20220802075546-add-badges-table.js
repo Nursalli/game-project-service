@@ -1,5 +1,5 @@
 module.exports = {
-  async up (queryInterface, Sequelize) {
+  async up(queryInterface, Sequelize) {
     await queryInterface.createTable('badges', {
       id: {
         allowNull: false,
@@ -14,12 +14,12 @@ module.exports = {
       startingPoint: {
         allowNull: false,
         type: Sequelize.BIGINT,
-        field: 'starting_point'
+        field: 'starting_point',
       },
       endingPoint: {
         allowNull: false,
         type: Sequelize.BIGINT,
-        field: 'ending_point'
+        field: 'ending_point',
       },
       thumbnail: {
         allowNull: true,
@@ -28,12 +28,11 @@ module.exports = {
       meta: {
         allowNull: true,
         type: Sequelize.TEXT,
-      }
+      },
     });
-
   },
 
-  async down (queryInterface, Sequelize) {
+  async down(queryInterface, Sequelize) {
     await queryInterface.dropTable('badges');
-  }
+  },
 };

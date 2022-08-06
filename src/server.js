@@ -18,7 +18,7 @@ app.use('/games', gamesRouter);
 
 app.all('*', (req, res) => {
   const response = new ErrorResponse('Not Found', {
-    details: 'Route Not Found Error'
+    details: 'Route Not Found Error',
   });
 
   res.status(404).send(response);
@@ -34,8 +34,8 @@ app.use(async (err, req, res, next) => {
 
   if (err instanceof AppError) {
     errorData = {
-      details: Object.keys(err.errData).length ? err.errData : err.message
-    }
+      details: Object.keys(err.errData).length ? err.errData : err.message,
+    };
     message = err.message;
     status = err.status;
   }

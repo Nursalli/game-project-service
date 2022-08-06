@@ -16,5 +16,4 @@ module.exports = {
       throw new AppError('Validation Error', 400);
     }
   },
-}
-
+};

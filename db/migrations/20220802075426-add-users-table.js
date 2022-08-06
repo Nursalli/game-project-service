@@ -1,5 +1,5 @@
 module.exports = {
-  async up (queryInterface, Sequelize) {
+  async up(queryInterface, Sequelize) {
     await queryInterface.createTable('users', {
       id: {
         allowNull: false,
@@ -10,12 +10,12 @@ module.exports = {
       firstName: {
         allowNull: false,
         type: Sequelize.STRING(50),
-        field: 'first_name'
+        field: 'first_name',
       },
       lastName: {
         allowNull: true,
         type: Sequelize.STRING(50),
-        field: 'last_name'
+        field: 'last_name',
       },
       email: {
         allowNull: false,
@@ -25,11 +25,11 @@ module.exports = {
       password: {
         allowNull: false,
         type: Sequelize.TEXT,
-      }
-    })
+      },
+    });
   },
 
-  async down (queryInterface, Sequelize) {
+  async down(queryInterface, Sequelize) {
     await queryInterface.dropTable('users');
-  }
+  },
 };

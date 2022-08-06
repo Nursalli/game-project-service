@@ -9,9 +9,9 @@ module.exports = {
       email: req.body.email,
       firstName: req.body.firstName,
       lastName: req.body.lastName,
-      password: req.body.password
+      password: req.body.password,
     };
-    
+
     const result = await userRepository.register(payload);
 
     result.password = undefined;
@@ -35,12 +35,12 @@ module.exports = {
       },
       process.env.JWT_SECRET_KEY,
       {
-        expiresIn: '24h'
+        expiresIn: '24h',
       }
     );
 
-    const response = new SuccessResponse('Success Login', {userId: user.id, token});
+    const response = new SuccessResponse('Success Login', { userId: user.id, token });
 
     res.json(response);
-  }
-}
+  },
+};

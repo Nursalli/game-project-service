@@ -1,5 +1,5 @@
 module.exports = {
-  async up (queryInterface, Sequelize) {
+  async up(queryInterface, Sequelize) {
     await queryInterface.createTable('games', {
       id: {
         allowNull: false,
@@ -24,7 +24,7 @@ module.exports = {
       winnerPointsEarned: {
         allowNull: false,
         type: Sequelize.INTEGER,
-        field: 'winner_points_earned'
+        field: 'winner_points_earned',
       },
       thumbnail: {
         allowNull: true,
@@ -33,29 +33,28 @@ module.exports = {
       gameUrl: {
         allowNull: true,
         type: Sequelize.TEXT,
-        field: 'game_url'
+        field: 'game_url',
       },
       viewCount: {
         allowNull: false,
         type: Sequelize.INTEGER,
         defaultValue: 0,
-        field: 'view_count'
+        field: 'view_count',
       },
       playCount: {
         allowNull: false,
         type: Sequelize.INTEGER,
         defaultValue: 0,
-        field: 'play_count'
+        field: 'play_count',
       },
       attributes: {
         allowNull: true,
         type: Sequelize.TEXT,
-      }
+      },
     });
-
   },
 
-  async down (queryInterface, Sequelize) {
+  async down(queryInterface, Sequelize) {
     await queryInterface.dropTable('games');
-  }
+  },
 };

@@ -13,19 +13,19 @@ module.exports = {
       next();
       return;
     }
-    
+
     throw new AppError('Unauthorized', 401);
   },
 
   authentication: async (req, res, next) => {
     req.isAuthenticated = () => {
       return req.user !== undefined;
-    }
+    };
 
     let token = '';
 
     try {
-      ([_, token] = req.headers['authorization'].split(' '));
+      [_, token] = req.headers['authorization'].split(' ');
     } catch (error) {
       throw new AppError('Token Required', 403);
     }
@@ -33,10 +33,10 @@ module.exports = {
     if (!token) {
       throw new AppError('Token Required', 403);
     }
-  
+
     try {
       const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY, {
-        ignoreExpiration: false
+        ignoreExpiration: false,
       });
 
       const user = await User.findByPk(Number(decoded.sub), {
@@ -47,7 +47,7 @@ module.exports = {
         throw new AppError('Token Invalid', 403);
       }
 
-      user.password = undefined
+      user.password = undefined;
 
       req.user = user;
 
@@ -55,5 +55,5 @@ module.exports = {
     } catch (error) {
       throw new AppError('Token Invalid', 403);
     }
-  }
-}
+  },
+};

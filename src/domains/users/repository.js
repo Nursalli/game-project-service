@@ -1,5 +1,5 @@
 const bcrypt = require('bcryptjs');
-const { UniqueConstraintError } = require('sequelize')
+const { UniqueConstraintError } = require('sequelize');
 
 const { User, UserRole } = require('../../../db/models');
 const { AppError } = require('../../utils/error');
@@ -15,14 +15,14 @@ module.exports = {
         lastName,
         password: encryptedPassword,
       });
-      
+
       await UserRole.create({
         userId: createdUser.id,
-        roleId: 2
+        roleId: 2,
       });
-  
+
       return await User.findByPk(createdUser.id, {
-        include: ['roles']
+        include: ['roles'],
       });
     } catch (error) {
       if (error instanceof UniqueConstraintError) {
@@ -51,5 +51,5 @@ module.exports = {
     }
 
     return userIsExist;
-  } 
-}
+  },
+};

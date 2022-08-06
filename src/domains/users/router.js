@@ -8,22 +8,16 @@ const userValidator = require('./validator');
 const userController = require('./controller');
 
 const routes = {
-  'POST: /register': [
-    validation(userValidator.register),
-    userController.register,
-  ],
-  'POST: /login': [
-    validation(userValidator.login),
-    userController.login,
-  ],
+  'POST: /register': [validation(userValidator.register), userController.register],
+  'POST: /login': [validation(userValidator.login), userController.login],
   'GET: /protected': [
     authentication,
     (req, res) => {
       res.json({
         hello: 'world: protected',
-        user: req.user
-      })
-    }
+        user: req.user,
+      });
+    },
   ],
   'GET: /double-protected': [
     authentication,
@@ -31,11 +25,11 @@ const routes = {
     (req, res) => {
       res.json({
         hello: 'world: double-protected',
-        user: req.user
-      })
-    }
-  ]
-}
+        user: req.user,
+      });
+    },
+  ],
+};
 
 buildRoutes(usersRouter, routes);
 

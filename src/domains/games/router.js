@@ -8,13 +8,8 @@ const gameValidator = require('./validator');
 const gameController = require('./controller');
 
 const routes = {
-  'GET: /': [
-    authentication,
-    authorization(['Player', 'Admin']),
-    validation(gameValidator.list),
-    gameController.list,
-  ]
-}
+  'GET: /': [authentication, authorization(['Player', 'Admin']), validation(gameValidator.list), gameController.list],
+};
 
 buildRoutes(gamesRouter, routes);
 

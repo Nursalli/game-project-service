@@ -1,16 +1,16 @@
-require("dotenv").config();
+require('dotenv').config();
 
 module.exports = {
   development: {
     url: process.env.DB_CONNECTION_STRING,
-    dialect: "postgres",
+    dialect: 'postgres',
   },
   test: {
     url: process.env.DB_CONNECTION_STRING,
-    dialect: "postgres",
+    dialect: 'postgres',
   },
   production: {
     url: process.env.DB_CONNECTION_STRING,
-    dialect: "postgres",
+    dialect: 'postgres',
   },
 };
