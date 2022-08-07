@@ -52,7 +52,7 @@ module.exports = {
       email: z.string(),
       bio: z.string().nullish(),
       country: z.string().nullish(),
-      birthday: z.string().nullish(),
+      birthday: z.preprocess((a) => new Date(z.string().parse(a)), z.date()).nullish(),
     }),
   }),
 };
