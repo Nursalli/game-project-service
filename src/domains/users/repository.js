@@ -210,7 +210,7 @@ module.exports = {
         }
       }
 
-      throw new AppError('Failed to Edit Data', 400);
+      throw error;
     }
 
     return { ...dataUser, ...dataBio };
