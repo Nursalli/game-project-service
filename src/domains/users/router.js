@@ -24,6 +24,12 @@ const routes = {
     validation(userValidator.getUserBadgeAndPoint),
     userController.getUserBadgeAndPoint,
   ],
+  'POST: /edit-profile': [
+    authentication,
+    authorization(['Admin', 'Player']),
+    validation(userValidator.editProfile),
+    userController.editProfile,
+  ],
 };
 
 buildRoutes(usersRouter, routes);

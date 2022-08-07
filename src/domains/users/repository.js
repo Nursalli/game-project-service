@@ -1,7 +1,8 @@
 const bcrypt = require('bcryptjs');
 const { UniqueConstraintError } = require('sequelize');
 
-const { User, UserRole, GameHistory, UserBadgeHistory, Badge } = require('../../../db/models');
+const { User, UserBiodata, UserRole, GameHistory, UserBadgeHistory, Badge } = require('../../../db/models');
+
 const { AppError } = require('../../utils/error');
 
 module.exports = {
@@ -175,5 +176,43 @@ module.exports = {
       badge: badgeName,
       points: totalPointsEarned ? totalPointsEarned : 0,
     };
+  },
+
+  editProfile: async (body, playerId) => {
+    const dataUser = {
+      firstName: body.firstName,
+      lastName: body.lastName,
+      email: body.email,
+    };
+
+    const dataBio = {
+      bio: body.bio,
+      country: body.country,
+      birthday: body.birthday,
+    };
+
+    try {
+      await User.update(dataUser, {
+        where: {
+          id: playerId,
+        },
+      });
+
+      await UserBiodata.update(dataBio, {
+        where: {
+          user_id: playerId,
+        },
+      });
+    } catch (error) {
+      if (error instanceof UniqueConstraintError) {
+        if (error?.parent?.code === 'ER_DUP_ENTRY') {
+          throw new AppError(error.parent.sqlMessage, 400);
+        }
+      }
+
+      throw new AppError('Failed to Edit Data', 400);
+    }
+
+    return { ...dataUser, ...dataBio };
   },
 };

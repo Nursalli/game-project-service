@@ -55,7 +55,7 @@ module.exports = {
   },
 
   getMyBio: async (req, res) => {
-    const playerId = Number(req.params.userId);
+    const playerId = req.params.userId;
 
     const result = await userRepository.getMyBio(playerId);
 
@@ -80,6 +80,18 @@ module.exports = {
     const result = await userRepository.getUserBadgeAndPoint(playerId);
 
     const response = new SuccessResponse('Success Get Badges&Points of User', result);
+
+    res.json(response);
+  },
+
+  editProfile: async (req, res) => {
+    const playerId = req.user.id;
+
+    const body = req.body;
+
+    const result = await userRepository.editProfile(body, playerId);
+
+    const response = new SuccessResponse('Success edit profile', result);
 
     res.json(response);
   },

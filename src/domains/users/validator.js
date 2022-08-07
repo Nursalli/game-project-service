@@ -29,7 +29,7 @@ module.exports = {
 
   getMyBio: z.object({
     params: z.object({
-      userId: z.string(),
+      userId: z.string().regex(/^\d+$/).transform(Number),
     }),
     query: z.object({}).nullish(),
     body: z.object({}).nullish(),
@@ -41,5 +41,18 @@ module.exports = {
     }),
     query: z.object({}).nullish(),
     body: z.object({}).nullish(),
+  }),
+
+  editProfile: z.object({
+    params: z.object({}).nullish(),
+    query: z.object({}).nullish(),
+    body: z.object({
+      firstName: z.string(),
+      lastName: z.string().nullish(),
+      email: z.string(),
+      bio: z.string().nullish(),
+      country: z.string().nullish(),
+      birthday: z.string().nullish(),
+    }),
   }),
 };
