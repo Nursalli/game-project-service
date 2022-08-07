@@ -7,7 +7,7 @@ module.exports = {
     return allGames;
   },
   addCounter: async (param, id) => {
-    const updatedGame = await Game.findOne({ where: id });
+    const updatedGame = await Game.findOne({ where: { id: id } });
 
     if (!updatedGame) {
       throw new AppError('Game Not Found', 404);
