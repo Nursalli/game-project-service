@@ -1,4 +1,5 @@
 const { Game } = require('../../../db/models');
+const { AppError } = require('../../utils/error');
 
 module.exports = {
   list: async () => {
