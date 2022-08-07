@@ -26,4 +26,10 @@ module.exports = {
 
     res.json(response);
   },
+  getLeaderboard: async (req, res) => {
+    const gameLeaderboard = await gameRepository.getLeaderboard(req.params.id);
+    const response = new SuccessResponse('Success Get Games Leaderboard', gameLeaderboard);
+
+    res.json(response);
+  },
 };
