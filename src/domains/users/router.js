@@ -10,24 +10,11 @@ const userController = require('./controller');
 const routes = {
   'POST: /register': [validation(userValidator.register), userController.register],
   'POST: /login': [validation(userValidator.login), userController.login],
-  'GET: /protected': [
+  'GET: /bio/:userId': [
     authentication,
-    (req, res) => {
-      res.json({
-        hello: 'world: protected',
-        user: req.user,
-      });
-    },
-  ],
-  'GET: /double-protected': [
-    authentication,
-    authorization(['Admin']),
-    (req, res) => {
-      res.json({
-        hello: 'world: double-protected',
-        user: req.user,
-      });
-    },
+    authorization(['Admin', 'Player']),
+    validation(userValidator.getMyBio),
+    userController.getMyBio,
   ],
   'GET: /my-histories': [authentication, authorization(['Admin', 'Player']), userController.getMyHistories],
   'GET: /my-games': [authentication, authorization(['Admin', 'Player']), userController.getMyGames],

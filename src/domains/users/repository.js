@@ -79,6 +79,33 @@ module.exports = {
     return myHistories;
   },
 
+  getMyBio: async (playerId) => {
+    const user = await User.findOne({
+      where: {
+        id: playerId,
+      },
+      attributes: ['id', 'email', 'first_name', 'last_name'],
+      raw: true,
+      include: ['biodata'],
+    });
+
+    if (!user) {
+      throw new AppError('User Not Found', 404);
+    }
+
+    const userBiodata = {
+      id: user.id,
+      email: user.email,
+      firstName: user.first_name,
+      lastName: user.last_name,
+      bio: user['biodata.bio'],
+      birthday: user['biodata.birthday'].toJSON().split('T')[0],
+      country: user['biodata.country'],
+    };
+
+    return userBiodata;
+  },
+
   getMyGames: async (playerId) => {
     const gameHistories = await GameHistory.findAll({
       where: {

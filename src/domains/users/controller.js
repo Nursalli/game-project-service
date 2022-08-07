@@ -54,6 +54,16 @@ module.exports = {
     res.json(response);
   },
 
+  getMyBio: async (req, res) => {
+    const playerId = Number(req.params.userId);
+
+    const result = await userRepository.getMyBio(playerId);
+
+    const response = new SuccessResponse("Success Get user's biodata", result);
+    
+    res.json(response);
+  },
+  
   getMyGames: async (req, res) => {
     const playerId = req.user.id;
 
