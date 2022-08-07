@@ -1,7 +1,7 @@
 const bcrypt = require('bcryptjs');
 const { UniqueConstraintError } = require('sequelize');
 
-const { User, UserBiodata, UserRole, GameHistory, UserBadgeHistory, Badge } = require('../../../db/models');
+const { User, UserRole, GameHistory, UserBadgeHistory, Badge } = require('../../../db/models');
 
 const { AppError } = require('../../utils/error');
 
@@ -20,6 +20,10 @@ module.exports = {
       await UserRole.create({
         userId: createdUser.id,
         roleId: 2,
+      });
+
+      await UserBiodata.create({
+        userId: createdUser.id,
       });
 
       return await User.findByPk(createdUser.id, {
@@ -100,7 +104,8 @@ module.exports = {
       firstName: user.first_name,
       lastName: user.last_name,
       bio: user['biodata.bio'],
-      birthday: user['biodata.birthday'].toJSON().split('T')[0],
+      birthday:
+        user['biodata.birthday'] !== null ? user['biodata.birthday'].toJSON().split('T')[0] : user['biodata.birthday'],
       country: user['biodata.country'],
     };
 
