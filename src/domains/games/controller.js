@@ -21,4 +21,10 @@ module.exports = {
 
     res.json(response);
   },
+  getDetails: async (req, res) => {
+    const game = await gameRepository.getDetails(req.params.id);
+    const response = new SuccessResponse('Success Get Game Details', game);
+
+    res.json(response);
+  },
 };
