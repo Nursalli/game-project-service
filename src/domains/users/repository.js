@@ -1,7 +1,7 @@
 const bcrypt = require('bcryptjs');
 const { UniqueConstraintError } = require('sequelize');
 
-const { User, UserRole, GameHistory } = require('../../../db/models');
+const { User, UserRole, GameHistory, UserBadgeHistory } = require('../../../db/models');
 const { AppError } = require('../../utils/error');
 
 module.exports = {
@@ -140,5 +140,37 @@ module.exports = {
     myGames.sort((a, b) => b.totalPointsEarned - a.totalPointsEarned);
 
     return myGames;
+  },
+
+  getUserBadgeAndPoint: async (playerId) => {
+    const userBadgeHistory = await UserBadgeHistory.findAll({
+      limit: 1,
+      where: {
+        userId: playerId,
+      },
+      attributes: ['badge_name'],
+      order: [['earned_at', 'DESC']],
+      raw: true,
+    });
+    const badgeName = userBadgeHistory.length > 0 ? userBadgeHistory[0].badge_name : '';
+
+    const totalPointsEarned = await GameHistory.sum('points_earned', { where: { player_id: playerId } });
+
+    const user = await User.findOne({
+      where: { id: playerId },
+      raw: true,
+    });
+
+    if (!user) {
+      throw new AppError('User Not Found', 404);
+    }
+
+    return {
+      userId: user.id,
+      userEmail: user.email,
+      userFirstName: user.firstName,
+      badge: badgeName,
+      points: totalPointsEarned ? totalPointsEarned : 0,
+    };
   },
 };

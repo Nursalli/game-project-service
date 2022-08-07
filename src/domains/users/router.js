@@ -18,6 +18,12 @@ const routes = {
   ],
   'GET: /my-histories': [authentication, authorization(['Admin', 'Player']), userController.getMyHistories],
   'GET: /my-games': [authentication, authorization(['Admin', 'Player']), userController.getMyGames],
+  'GET: /badges-points/:userId': [
+    authentication,
+    authorization(['Admin', 'Player']),
+    validation(userValidator.getUserBadgeAndPoint),
+    userController.getUserBadgeAndPoint,
+  ],
 };
 
 buildRoutes(usersRouter, routes);
