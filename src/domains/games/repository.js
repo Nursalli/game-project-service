@@ -1,6 +1,5 @@
-const { Game, sequelize } = require('../../../db/models');
+const { Game } = require('../../../db/models');
 const { AppError } = require('../../utils/error');
-const { QueryTypes } = require('sequelize');
 
 module.exports = {
   list: async () => {
