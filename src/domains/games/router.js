@@ -16,6 +16,7 @@ const routes = {
     validation(gameValidator.paramsId),
     gameController.addPlayCount,
   ],
+  'GET: /:id': [validation(gameValidator.paramsId), gameController.getDetails],
 };
 
 buildRoutes(gamesRouter, routes);

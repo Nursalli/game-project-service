@@ -21,4 +21,13 @@ module.exports = {
       [param]: updatedGame[param],
     };
   },
+  getDetails: async (id) => {
+    const game = await Game.findOne({ where: { id: id } });
+
+    if (!game) {
+      throw new AppError('Game Not Found', 404);
+    }
+
+    return game;
+  },
 };
