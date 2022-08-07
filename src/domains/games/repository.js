@@ -6,29 +6,19 @@ module.exports = {
     const allGames = await Game.findAll();
     return allGames;
   },
-  addViewCount: async (id) => {
+  addCounter: async (param, id) => {
     const updatedGame = await Game.findOne({ where: id });
 
     if (!updatedGame) {
       throw new AppError('Game Not Found', 404);
     }
 
-    updatedGame.viewCount += 1;
+    updatedGame[param] += 1;
     await updatedGame.save();
 
     return {
       id: updatedGame.id,
-      viewCount: updatedGame.viewCount,
-    };
-  },
-  addPlayCount: async (id) => {
-    const updatedGame = await Game.findOne({ where: id });
-    updatedGame.playCount += 1;
-    updatedGame.save();
-
-    return {
-      id: updatedGame.id,
-      playCount: updatedGame.playCount,
+      [param]: updatedGame[param],
     };
   },
 };
