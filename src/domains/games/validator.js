@@ -6,4 +6,9 @@ module.exports = {
     query: z.object({}).nullish(),
     body: z.object({}).nullish(),
   }),
+  paramsId: z.object({
+    params: z.object({
+      id: z.string().regex(/^\d+$/).transform(Number),
+    }),
+  }),
 };
