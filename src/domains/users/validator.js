@@ -34,4 +34,12 @@ module.exports = {
     query: z.object({}).nullish(),
     body: z.object({}).nullish(),
   }),
+
+  getUserBadgeAndPoint: z.object({
+    params: z.object({
+      userId: z.string().regex(/^\d+$/).transform(Number),
+    }),
+    query: z.object({}).nullish(),
+    body: z.object({}).nullish(),
+  }),
 };
