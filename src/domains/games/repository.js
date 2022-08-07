@@ -2,8 +2,15 @@ const { Game, sequelize } = require('../../../db/models');
 const { AppError } = require('../../utils/error');
 
 module.exports = {
-  list: async () => {
-    const allGames = await Game.findAll();
+  list: async (limit) => {
+    const allGames = await Game.findAll({
+      order: [
+        ['playCount', 'DESC'],
+        ['viewCount', 'DESC'],
+      ],
+      ...(limit && { limit: limit }),
+      ...(!limit && {}),
+    });
     return allGames;
   },
   addCounter: async (param, id) => {
