@@ -8,7 +8,7 @@ const gameValidator = require('./validator');
 const gameController = require('./controller');
 
 const routes = {
-  'GET: /landing': [validation(gameValidator.list), gameController.list],
+  'GET: /landing': [validation(gameValidator.list), gameController.landing],
   'POST: /view-count/:id': [validation(gameValidator.paramsId), gameController.addViewCount],
   'POST: /play-count/:id': [
     authentication,
@@ -18,6 +18,7 @@ const routes = {
   ],
   'GET: /:id': [validation(gameValidator.paramsId), gameController.getDetails],
   'GET: /leaderboard/:id': [validation(gameValidator.paramsId), gameController.getLeaderboard],
+  'GET: /listing': [validation(gameValidator.list), gameController.listing],
 };
 
 buildRoutes(gamesRouter, routes);

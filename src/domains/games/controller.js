@@ -2,10 +2,10 @@ const { SuccessResponse } = require('../../utils/response');
 const gameRepository = require('./repository');
 
 module.exports = {
-  list: async (req, res) => {
+  landing: async (req, res) => {
     const numberOfGames = 6;
     const games = await gameRepository.list(numberOfGames);
-    const response = new SuccessResponse('Success List Games', games);
+    const response = new SuccessResponse('Success List Games Landing', games);
 
     res.json(response);
   },
@@ -30,6 +30,12 @@ module.exports = {
   getLeaderboard: async (req, res) => {
     const gameLeaderboard = await gameRepository.getLeaderboard(req.params.id);
     const response = new SuccessResponse('Success Get Games Leaderboard', gameLeaderboard);
+
+    res.json(response);
+  },
+  listing: async (req, res) => {
+    const games = await gameRepository.list();
+    const response = new SuccessResponse('Success List Games', games);
 
     res.json(response);
   },
