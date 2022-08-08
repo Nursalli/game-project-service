@@ -38,10 +38,10 @@
     "pg": "^8.7.3",
     "pg-hstore": "^2.3.4",
     "sequelize": "^6.21.3",
+    "sequelize-cli": "^6.4.1",
     "zod": "^3.17.10"
   },
   "devDependencies": {
-    "nodemon": "^2.0.19",
-    "sequelize-cli": "^6.4.1"
+    "nodemon": "^2.0.19"
   }
 }
