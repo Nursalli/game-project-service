@@ -1,7 +1,7 @@
 const bcrypt = require('bcryptjs');
 const { UniqueConstraintError } = require('sequelize');
 
-const { User, UserRole, GameHistory, UserBadgeHistory, Badge } = require('../../../db/models');
+const { User, UserRole, GameHistory, UserBadgeHistory, Badge, UserBiodata } = require('../../../db/models');
 
 const { AppError } = require('../../utils/error');
 
