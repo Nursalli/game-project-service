@@ -8,8 +8,12 @@ const gamesRouter = require('./domains/games/router');
 const { ErrorResponse } = require('./utils/response');
 const { AppError } = require('./utils/error');
 
+const cors = require('cors');
+
 const app = express();
 const PORT = process.env.APP_PORT || 3000;
+
+app.use(cors());
 
 app.use(express.json({ limit: '1mb' }));
 
