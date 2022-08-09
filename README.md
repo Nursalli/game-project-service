@@ -12,11 +12,12 @@ Set up your `.env` file align with `.env.sample` given
 
 ```.env
 NODE_ENV=development
-APP_PORT=3010
-DB_CONNECTION_STRING=mysql://user:password@localhost:3306/db_name
+PORT=3000
+DATABASE_URL=postgres://username:password@localhost:5432/db_name
 INITIAL_ADMIN_PASSWORD=admin123
 BCRYPT_SALT=8
 JWT_SECRET_KEY=somesecret
+PGSSLMODE=no-verify
 ```
 
 ## Install
