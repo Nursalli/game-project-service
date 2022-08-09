@@ -39,4 +39,22 @@ module.exports = {
 
     res.json(response);
   },
+
+  playInit: async (req, res) => {
+    const playerId = req.user.id;
+    const gameId = req.body.id;
+    const playedAt = req.body.playedAt;
+
+    const data = {
+      playerId,
+      gameId,
+      playedAt,
+    };
+
+    const result = await gameRepository.playInit(data);
+
+    const response = new SuccessResponse('Success Initiate Game History', result);
+
+    res.json(response);
+  },
 };

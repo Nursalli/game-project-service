@@ -40,12 +40,12 @@ module.exports = (sequelize, DataTypes) => {
         field: 'game_id',
       },
       status: {
-        allowNull: false,
+        allowNull: true,
         type: DataTypes.ENUM('LOSE', 'WIN', 'DRAW'),
         field: 'status',
       },
       pointsEarned: {
-        allowNull: false,
+        allowNull: true,
         type: DataTypes.INTEGER,
         field: 'points_earned',
       },

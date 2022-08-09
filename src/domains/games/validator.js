@@ -1,4 +1,5 @@
 const { z } = require('zod');
+const { zj } = require('zod-joda');
 
 module.exports = {
   list: z.object({
@@ -9,6 +10,14 @@ module.exports = {
   paramsId: z.object({
     params: z.object({
       id: z.string().regex(/^\d+$/).transform(Number),
+    }),
+  }),
+  playInit: z.object({
+    params: z.object({}).nullish(),
+    query: z.object({}).nullish(),
+    body: z.object({
+      id: z.string().regex(/^\d+$/).transform(Number),
+      playedAt: zj.zonedDateTime(),
     }),
   }),
 };
