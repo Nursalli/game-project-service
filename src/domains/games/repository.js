@@ -1,4 +1,4 @@
-const { Game, sequelize } = require('../../../db/models');
+const { Game, sequelize, GameHistory } = require('../../../db/models');
 const { AppError } = require('../../utils/error');
 
 module.exports = {
@@ -49,5 +49,18 @@ module.exports = {
     }
 
     return game;
+  },
+  playInit: async (data) => {
+    const game = await Game.findOne({ where: { id: data.gameId } });
+
+    if (!game) {
+      throw new AppError('Game Not Found', 404);
+    }
+
+    const gameHistory = await GameHistory.create(data);
+
+    return {
+      id: gameHistory.id,
+    };
   },
 };

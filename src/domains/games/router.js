@@ -19,6 +19,12 @@ const routes = {
   ],
   'GET: /leaderboard/:id': [validation(gameValidator.paramsId), gameController.getLeaderboard],
   'GET: /:id': [validation(gameValidator.paramsId), gameController.getDetails],
+  'POST: /play/init': [
+    authentication,
+    authorization(['Player', 'Admin']),
+    validation(gameValidator.playInit),
+    gameController.playInit,
+  ],
 };
 
 buildRoutes(gamesRouter, routes);
