@@ -70,7 +70,7 @@ module.exports = {
 
     const newBadge = await gameRepository.createBadge(badgeData);
 
-    const response = new SuccessResponse('Success Finaluze Game History', { updateHistory, newBadge });
+    const response = new SuccessResponse('Success Finalize Game History', { updateHistory, newBadge });
 
     res.json(response);
   },
