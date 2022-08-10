@@ -1,5 +1,9 @@
 # Game Project Service
 
+## API Documentation
+```sh
+https://documenter.getpostman.com/view/5473913/VUjQkPgX
+```
 ## DB Schema
 
 Below is the database schema of this service:
