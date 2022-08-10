@@ -36,7 +36,7 @@ module.exports = {
     }
 
     const result = await sequelize.query(
-      `SELECT a.player_id, CONCAT(b.first_name, ' ', b.last_name) AS name, b.email, CASE WHEN c.badge_name IS NOT NULL THEN c.badge_name ELSE 'Bronze' END AS badge, SUM(a.points_earned) AS points FROM game_histories a LEFT JOIN users b ON a.player_id = b.id LEFT JOIN (SELECT user_id, badge_name, RANK() OVER(PARTITION BY user_id ORDER BY earned_at DESC) AS earned_rank FROM user_badges_history) c ON a.player_id = c.user_id WHERE a.game_id = ${id} AND c.earned_rank = 1 GROUP BY 1,2,3,4 ORDER BY 5 DESC`
+      `SELECT a.player_id AS id, CONCAT(b.first_name, ' ', b.last_name) AS name, b.email, CASE WHEN c.badge_name IS NOT NULL THEN c.badge_name ELSE 'Bronze' END AS badge, SUM(a.points_earned) AS points FROM game_histories a LEFT JOIN users b ON a.player_id = b.id LEFT JOIN (SELECT user_id, badge_name, RANK() OVER(PARTITION BY user_id ORDER BY earned_at DESC) AS earned_rank FROM user_badges_history) c ON a.player_id = c.user_id WHERE a.game_id = ${id} AND c.earned_rank = 1 GROUP BY 1,2,3,4 ORDER BY 5 DESC`
     );
 
     return result[0];
