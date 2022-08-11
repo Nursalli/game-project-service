@@ -1,5 +1,6 @@
-const { Game, sequelize, GameHistory } = require('../../../db/models');
+const { Game, sequelize, GameHistory, UserBadgeHistory, Badge } = require('../../../db/models');
 const { AppError } = require('../../utils/error');
+const { Op } = require('sequelize');
 
 module.exports = {
   list: async (limit) => {
@@ -62,5 +63,70 @@ module.exports = {
     return {
       id: gameHistory.id,
     };
+  },
+  calcTotalPoint: async (id) => {
+    const gameHistory = await GameHistory.findOne({ where: { id: id } });
+
+    if (!gameHistory) {
+      throw new AppError('Game History Not Found', 404);
+    }
+
+    let currentPoint = await GameHistory.sum('points_earned', { where: { playerId: gameHistory.playerId } });
+
+    if (!currentPoint) {
+      currentPoint = 0;
+    }
+
+    return currentPoint;
+  },
+  updateHistory: async (data) => {
+    const gameHistory = await GameHistory.findOne({ where: { id: data.idHistory } });
+
+    if (!gameHistory.pointsEarned && !gameHistory.metaData && !gameHistory.status) {
+      if (data.status === 'WIN') {
+        const game = await Game.findOne({ where: { id: data.id } });
+        gameHistory.pointsEarned = game.winnerPointsEarned;
+      } else {
+        gameHistory.pointsEarned = 0;
+      }
+
+      gameHistory.metaData = JSON.stringify(data.metaData);
+      gameHistory.status = data.status;
+
+      const result = await gameHistory.save();
+      return result;
+    } else {
+      throw new AppError('Cannot Update Written Game History', 404);
+    }
+  },
+  createBadge: async (data) => {
+    const qualifiedBadge = await Badge.findOne({
+      where: {
+        [Op.and]: [
+          {
+            startingPoint: {
+              [Op.lte]: data.latestPoint,
+            },
+          },
+          {
+            endingPoint: {
+              [Op.gt]: data.latestPoint,
+            },
+          },
+        ],
+      },
+    });
+
+    const newBadgeData = {
+      userId: data.userId,
+      badgeId: qualifiedBadge.id,
+      badgeName: qualifiedBadge.name,
+      pointsBefore: data.currentPoint,
+      pointsAfter: data.latestPoint,
+      earnedAt: new Date().toISOString(),
+    };
+
+    const newBadge = await UserBadgeHistory.create(newBadgeData);
+    return newBadge;
   },
 };

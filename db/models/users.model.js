@@ -17,14 +17,6 @@ module.exports = (sequelize, DataTypes) => {
         unique: false,
       });
 
-      // badges
-      this.belongsToMany(models.Badge, {
-        through: models.UserBadgeHistory,
-        as: 'badges',
-        foreignKey: 'user_id',
-        unique: false,
-      });
-
       // badgesHistories
       this.hasMany(models.UserBadgeHistory, {
         as: 'badgesHistories',

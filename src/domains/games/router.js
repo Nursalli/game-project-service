@@ -18,13 +18,19 @@ const routes = {
     gameController.addPlayCount,
   ],
   'GET: /leaderboard/:id': [validation(gameValidator.paramsId), gameController.getLeaderboard],
-  'GET: /:id': [validation(gameValidator.paramsId), gameController.getDetails],
   'POST: /play/init': [
     authentication,
     authorization(['Player', 'Admin']),
     validation(gameValidator.playInit),
     gameController.playInit,
   ],
+  'POST: /play/com': [
+    authentication,
+    authorization(['Player', 'Admin']),
+    validation(gameValidator.playCom),
+    gameController.playCom,
+  ],
+  'GET: /:id': [validation(gameValidator.paramsId), gameController.getDetails],
 };
 
 buildRoutes(gamesRouter, routes);

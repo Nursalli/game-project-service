@@ -57,4 +57,21 @@ module.exports = {
 
     res.json(response);
   },
+  playCom: async (req, res) => {
+    const currentPoint = await gameRepository.calcTotalPoint(req.body.idHistory);
+    const updateHistory = await gameRepository.updateHistory(req.body);
+    const latestPoint = await gameRepository.calcTotalPoint(req.body.idHistory);
+
+    const badgeData = {
+      userId: updateHistory.playerId,
+      currentPoint,
+      latestPoint,
+    };
+
+    const newBadge = await gameRepository.createBadge(badgeData);
+
+    const response = new SuccessResponse('Success Finalize Game History', { updateHistory, newBadge });
+
+    res.json(response);
+  },
 };
