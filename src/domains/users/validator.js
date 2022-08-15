@@ -55,4 +55,12 @@ module.exports = {
       birthday: z.preprocess((a) => new Date(z.string().parse(a)), z.date()).nullish(),
     }),
   }),
+
+  getMyGames: z.object({
+    params: z.object({}).nullish(),
+    query: z.object({}).nullish(),
+    body: z.object({
+      userId: z.number(),
+    }),
+  }),
 };

@@ -17,7 +17,12 @@ const routes = {
     userController.getMyBio,
   ],
   'GET: /my-histories': [authentication, authorization(['Admin', 'Player']), userController.getMyHistories],
-  'GET: /my-games': [authentication, authorization(['Admin', 'Player']), userController.getMyGames],
+  'GET: /my-games': [
+    authentication,
+    authorization(['Admin', 'Player']),
+    validation(userValidator.getMyGames),
+    userController.getMyGames,
+  ],
   'GET: /badges-points/:userId': [
     authentication,
     authorization(['Admin', 'Player']),
