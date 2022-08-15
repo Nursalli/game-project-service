@@ -1,8 +1,11 @@
+const getVersion = require('../utils/version');
+
 class BaseResponse {
   success;
   message = 'success';
   data = {};
   error = null;
+  version = getVersion();
 
   constructor(success, message, data, error = null) {
     this.success = success;

@@ -1,6 +1,7 @@
 require('dotenv').config();
 
 const express = require('express');
+const getVersion = require('./utils/version');
 
 const usersRouter = require('./domains/users/router');
 const gamesRouter = require('./domains/games/router');
@@ -16,6 +17,11 @@ const PORT = process.env.PORT || 3000;
 app.use(cors());
 
 app.use(express.json({ limit: '1mb' }));
+
+app.use(function (req, res, next) {
+  res.setHeader('Version', getVersion());
+  next();
+});
 
 app.use('/users', usersRouter);
 app.use('/games', gamesRouter);
