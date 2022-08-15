@@ -145,10 +145,6 @@ module.exports = {
 
     myGames.sort((a, b) => b.totalPointsEarned - a.totalPointsEarned);
 
-    if (Object.keys(myGames).length <= 0) {
-      throw new AppError('Data Not Found', 404);
-    }
-
     return myGames;
   },
 
