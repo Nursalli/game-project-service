@@ -1,6 +1,6 @@
 {
   "name": "game-project-service",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "game project service binar platinum",
   "main": "server.js",
   "scripts": {
