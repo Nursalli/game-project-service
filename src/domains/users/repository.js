@@ -192,7 +192,7 @@ module.exports = {
 
     const dataBio = {
       bio: body.bio,
-      country: body.country,
+      country: body.country.toUpperCase(),
       birthday: body.birthday,
     };
 
