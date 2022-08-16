@@ -65,7 +65,7 @@ module.exports = {
   },
 
   getMyGames: async (req, res) => {
-    const playerId = req.user.id;
+    const playerId = req.body.userId;
 
     const result = await userRepository.getMyGames(playerId);
 
