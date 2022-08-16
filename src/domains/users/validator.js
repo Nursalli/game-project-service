@@ -51,7 +51,7 @@ module.exports = {
       lastName: z.string().nullish(),
       email: z.string(),
       bio: z.string().nullish(),
-      country: z.string().nullish(),
+      country: z.string().max(3).nullish(),
       birthday: z.preprocess((a) => new Date(z.string().parse(a)), z.date()).nullish(),
     }),
   }),
