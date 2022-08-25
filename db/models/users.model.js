@@ -57,6 +57,7 @@ module.exports = (sequelize, DataTypes) => {
       profilePic: {
         allowNull: true,
         type: DataTypes.TEXT,
+        field: 'profile_pic',
       },
       password: {
         allowNull: false,
