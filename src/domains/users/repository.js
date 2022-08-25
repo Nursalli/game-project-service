@@ -189,15 +189,6 @@ module.exports = {
       email: body.email,
     };
 
-    const proPic = body.profilePic;
-    const oldPic = await User.findOne({
-      where: {
-        id: playerId,
-      },
-    });
-
-    dataUser.profilePic = proPic || oldPic.profilePic;
-
     const dataBio = {
       bio: body.bio,
       country: body.country.toUpperCase(),
@@ -232,7 +223,7 @@ module.exports = {
   updateProfilePic: async (body, playerId) => {
     const proPic = body.profilePic;
 
-    try {
+    if (proPic) {
       await User.update(
         {
           profilePic: proPic,
@@ -243,25 +234,20 @@ module.exports = {
           },
         }
       );
-    } catch (error) {
-      throw error;
+
+      return {
+        profilePic: proPic,
+      };
     }
 
-    const userUpdate = await User.findOne({
-      where: { id: playerId },
-      raw: true,
-      include: ['biodata'],
+    const oldProPic = await User.findOne({
+      where: {
+        id: playerId,
+      },
     });
 
     return {
-      id: userUpdate.id,
-      firstName: userUpdate.firstName,
-      lastName: userUpdate.lastName,
-      email: userUpdate.email,
-      profilePic: userUpdate.profilePic,
-      bio: userUpdate['biodata.bio'],
-      birthday: userUpdate['biodata.birthday'] && userUpdate['biodata.birthday'].toJSON().split('T')[0],
-      country: userUpdate['biodata.country'],
+      profilePic: oldProPic.profilePic,
     };
   },
 };

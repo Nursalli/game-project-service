@@ -50,7 +50,6 @@ module.exports = {
       firstName: z.string(),
       lastName: z.string().nullish(),
       email: z.string(),
-      profilePic: z.string().nullish(),
       bio: z.string().nullish(),
       country: z.string().max(3).nullish(),
       birthday: z.preprocess((a) => new Date(z.string().parse(a)), z.date()).nullish(),
@@ -69,7 +68,7 @@ module.exports = {
     params: z.object({}).nullish(),
     query: z.object({}).nullish(),
     body: z.object({
-      profilePic: z.string(),
+      profilePic: z.string().nullish(),
     }),
   }),
 };
