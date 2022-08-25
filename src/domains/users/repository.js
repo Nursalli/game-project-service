@@ -104,8 +104,7 @@ module.exports = {
       firstName: user.first_name,
       lastName: user.last_name,
       bio: user['biodata.bio'],
-      birthday:
-        user['biodata.birthday'] !== null ? user['biodata.birthday'].toJSON().split('T')[0] : user['biodata.birthday'],
+      birthday: user['biodata.birthday'] && user['biodata.birthday'].toJSON().split('T')[0],
       country: user['biodata.country'],
     };
 
@@ -219,5 +218,39 @@ module.exports = {
     }
 
     return { ...dataUser, ...dataBio };
+  },
+
+  updateProfilePic: async (body, playerId) => {
+    try {
+      await User.update(
+        {
+          profilePic: body.profilePic,
+        },
+        {
+          where: {
+            id: playerId,
+          },
+        }
+      );
+    } catch (error) {
+      throw error;
+    }
+
+    const userUpdate = await User.findOne({
+      where: { id: playerId },
+      raw: true,
+      include: ['biodata'],
+    });
+
+    return {
+      id: userUpdate.id,
+      firstName: userUpdate.firstName,
+      lastName: userUpdate.lastName,
+      email: userUpdate.email,
+      profilePic: userUpdate.profilePic,
+      bio: userUpdate['biodata.bio'],
+      country: userUpdate['biodata.country'],
+      birthday: userUpdate['biodata.birthday'] && userUpdate['biodata.birthday'].toJSON().split('T')[0],
+    };
   },
 };

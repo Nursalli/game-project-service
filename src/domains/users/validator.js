@@ -63,4 +63,12 @@ module.exports = {
       userId: z.number(),
     }),
   }),
+
+  updateProfilePic: z.object({
+    params: z.object({}).nullish(),
+    query: z.object({}).nullish(),
+    body: z.object({
+      profilePic: z.string(),
+    }),
+  }),
 };
