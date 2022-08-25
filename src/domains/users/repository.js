@@ -89,7 +89,6 @@ module.exports = {
       where: {
         id: playerId,
       },
-      attributes: ['id', 'email', 'first_name', 'last_name'],
       raw: true,
       include: ['biodata'],
     });
@@ -101,8 +100,9 @@ module.exports = {
     const userBiodata = {
       id: user.id,
       email: user.email,
-      firstName: user.first_name,
-      lastName: user.last_name,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      profilePic: user.profilePic,
       bio: user['biodata.bio'],
       birthday: user['biodata.birthday'] && user['biodata.birthday'].toJSON().split('T')[0],
       country: user['biodata.country'],
@@ -189,6 +189,15 @@ module.exports = {
       email: body.email,
     };
 
+    const proPic = body.profilePic;
+    const oldPic = await User.findOne({
+      where: {
+        id: playerId,
+      },
+    });
+
+    dataUser.profilePic = proPic || oldPic.profilePic;
+
     const dataBio = {
       bio: body.bio,
       country: body.country.toUpperCase(),
@@ -221,10 +230,12 @@ module.exports = {
   },
 
   updateProfilePic: async (body, playerId) => {
+    const proPic = body.profilePic;
+
     try {
       await User.update(
         {
-          profilePic: body.profilePic,
+          profilePic: proPic,
         },
         {
           where: {
@@ -249,8 +260,8 @@ module.exports = {
       email: userUpdate.email,
       profilePic: userUpdate.profilePic,
       bio: userUpdate['biodata.bio'],
-      country: userUpdate['biodata.country'],
       birthday: userUpdate['biodata.birthday'] && userUpdate['biodata.birthday'].toJSON().split('T')[0],
+      country: userUpdate['biodata.country'],
     };
   },
 };
