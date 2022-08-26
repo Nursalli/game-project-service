@@ -95,4 +95,16 @@ module.exports = {
 
     res.json(response);
   },
+
+  updateProfilePic: async (req, res) => {
+    const playerId = req.user.id;
+
+    const body = req.body;
+
+    const result = await userRepository.updateProfilePic(body, playerId);
+
+    const response = new SuccessResponse('Success update profile picture', result);
+
+    res.json(response);
+  },
 };
