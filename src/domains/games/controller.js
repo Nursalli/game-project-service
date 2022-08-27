@@ -74,4 +74,13 @@ module.exports = {
 
     res.json(response);
   },
+  getIsPlayed: async (req, res) => {
+    const gameId = req.params.id;
+    const playerId = req.user.id;
+    const isPlayed = await gameRepository.getIsPlayed(gameId, playerId);
+
+    const response = new SuccessResponse('Success Game is Played by User', { isPlayed: isPlayed });
+
+    res.json(response);
+  },
 };
