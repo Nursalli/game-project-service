@@ -5,6 +5,8 @@ const { User, UserRole, GameHistory, UserBadgeHistory, Badge, UserBiodata } = re
 
 const { AppError } = require('../../utils/error');
 
+const jwt = require('jsonwebtoken');
+
 module.exports = {
   register: async ({ email, firstName, lastName, password }) => {
     const encryptedPassword = bcrypt.hashSync(password);
@@ -249,5 +251,39 @@ module.exports = {
     return {
       profilePic: oldProPic.profilePic,
     };
+  },
+
+  validateUser: async (jwtToken) => {
+    const tokenArray = jwtToken.split(' ');
+
+    const bearerToken = tokenArray[1];
+
+    try {
+      const decoded = jwt.verify(bearerToken, process.env.JWT_SECRET_KEY);
+      const id = decoded.sub;
+
+      const user = await User.findOne({
+        where: {
+          id: id,
+        },
+        raw: true,
+        include: ['biodata'],
+      });
+
+      if (!user) {
+        throw new AppError('user invalid, please re-login', 404);
+      }
+
+      const userDetail = {
+        firstName: user.firstName,
+        lastName: user.lastName,
+        email: user.email,
+        country: user['biodata.country'],
+      };
+
+      return userDetail;
+    } catch (err) {
+      throw new AppError('user invalid, please re-login', 400);
+    }
   },
 };

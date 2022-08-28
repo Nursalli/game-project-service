@@ -107,4 +107,13 @@ module.exports = {
 
     res.json(response);
   },
+
+  validateUser: async (req, res) => {
+    const jwttoken = req.headers.authorization;
+
+    const user = await userRepository.validateUser(jwttoken);
+
+    const response = new SuccessResponse('Success validate user', user);
+    res.json(response);
+  },
 };
