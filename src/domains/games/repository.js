@@ -129,4 +129,15 @@ module.exports = {
     const newBadge = await UserBadgeHistory.create(newBadgeData);
     return newBadge;
   },
+  getIsPlayed: async (gameId, playerId) => {
+    const gameHistories = await GameHistory.findAll({
+      where: { gameId: gameId, playerId: playerId },
+    });
+
+    if (gameHistories.length > 0) {
+      return true;
+    }
+
+    return false;
+  },
 };

@@ -31,6 +31,12 @@ const routes = {
     gameController.playCom,
   ],
   'GET: /:id': [validation(gameValidator.paramsId), gameController.getDetails],
+  'GET: /:id/is-played': [
+    authentication,
+    authorization(['Player', 'Admin']),
+    validation(gameValidator.paramsId),
+    gameController.getIsPlayed,
+  ],
 };
 
 buildRoutes(gamesRouter, routes);
