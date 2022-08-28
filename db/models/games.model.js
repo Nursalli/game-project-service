@@ -63,6 +63,12 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: true,
         type: DataTypes.TEXT,
       },
+      numberOfRounds: {
+        allowNull: false,
+        type: DataTypes.INTEGER,
+        defaultValue: 1,
+        field: 'number_of_rounds',
+      },
     },
     {
       sequelize,
