@@ -140,4 +140,21 @@ module.exports = {
 
     return false;
   },
+  getRequiredRound: async (gameId) => {
+    const gameDetails = await Game.findOne({
+      where: {
+        id: gameId,
+      },
+      raw: true,
+    });
+
+    if (!gameDetails) {
+      throw new AppError('Game Not Found', 404);
+    }
+
+    return {
+      gameId: gameDetails.id,
+      requiredRound: gameDetails.numberOfRounds,
+    };
+  },
 };

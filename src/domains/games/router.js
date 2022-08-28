@@ -37,6 +37,12 @@ const routes = {
     validation(gameValidator.paramsId),
     gameController.getIsPlayed,
   ],
+  'GET: /:id/required-round': [
+    authentication,
+    authorization(['Player', 'Admin']),
+    validation(gameValidator.paramsId),
+    gameController.getRequiredRound,
+  ],
 };
 
 buildRoutes(gamesRouter, routes);
