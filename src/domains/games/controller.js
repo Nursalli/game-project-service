@@ -83,4 +83,13 @@ module.exports = {
 
     res.json(response);
   },
+  getRequiredRound: async (req, res) => {
+    const gameId = req.params.id;
+
+    const result = await gameRepository.getRequiredRound(gameId);
+
+    const response = new SuccessResponse('Success Get Required Round', result);
+
+    res.json(response);
+  },
 };
