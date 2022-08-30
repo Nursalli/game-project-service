@@ -42,6 +42,12 @@ const routes = {
     userController.updateProfilePic,
   ],
   'POST: /validate': [authentication, authorization(['Admin', 'Player']), userController.validateUser],
+  'GET: /points/:gameId': [
+    authentication,
+    authorization(['Admin', 'Player']),
+    validation(userValidator.getMyPoints),
+    userController.getMyPoints,
+  ],
 };
 
 buildRoutes(usersRouter, routes);

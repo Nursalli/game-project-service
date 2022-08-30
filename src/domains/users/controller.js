@@ -116,4 +116,16 @@ module.exports = {
     const response = new SuccessResponse('Success validate user', user);
     res.json(response);
   },
+
+  getMyPoints: async (req, res) => {
+    const playerId = req.user.id;
+
+    const gameId = req.params.gameId;
+
+    const result = await userRepository.getMyPoints(playerId, gameId);
+
+    const response = new SuccessResponse('Success Get My Points', result);
+
+    res.json(response);
+  },
 };

@@ -71,4 +71,12 @@ module.exports = {
       profilePic: z.string().nullish(),
     }),
   }),
+
+  getMyPoints: z.object({
+    params: z.object({
+      gameId: z.string().regex(/^\d+$/).transform(Number),
+    }),
+    query: z.object({}).nullish(),
+    body: z.object({}).nullish(),
+  }),
 };
