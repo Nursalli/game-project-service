@@ -181,6 +181,7 @@ module.exports = {
       userFirstName: user.firstName,
       badge: badgeName,
       points: totalPointsEarned ? totalPointsEarned : 0,
+      userProfilePic: user.profilePic
     };
   },
 
@@ -278,6 +279,7 @@ module.exports = {
         firstName: user.firstName,
         lastName: user.lastName,
         email: user.email,
+        profile_pic: user.profilePic,
         country: user['biodata.country'],
       };
 
