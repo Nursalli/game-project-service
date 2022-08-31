@@ -1,7 +1,7 @@
 const bcrypt = require('bcryptjs');
 const { UniqueConstraintError } = require('sequelize');
 
-const { User, UserRole, GameHistory, UserBadgeHistory, Badge, UserBiodata } = require('../../../db/models');
+const { User, UserRole, GameHistory, UserBadgeHistory, Badge, UserBiodata, sequelize } = require('../../../db/models');
 
 const { AppError } = require('../../utils/error');
 
@@ -287,5 +287,31 @@ module.exports = {
     } catch (err) {
       throw new AppError('user invalid, please re-login', 400);
     }
+  },
+
+  getMyPoints: async (playerId, gameId) => {
+    const gameHistories = await GameHistory.findAll({
+      where: {
+        player_id: playerId,
+        game_id: gameId,
+      },
+      attributes: ['game_id', [sequelize.fn('sum', sequelize.col('points_earned')), 'total_points_earned']],
+      raw: true,
+      include: ['game'],
+      group: ['GameHistory.game_id', 'game.id'],
+    });
+
+    if (gameHistories.length === 0) {
+      throw new AppError('Game Points Not Found', 404);
+    }
+
+    const gamePoints = {
+      gameName: gameHistories[0]['game.title'],
+      gameThumbnail: gameHistories[0]['game.thumbnail'],
+      gameUrl: gameHistories[0]['game.gameUrl'],
+      totalPointsEarned: Number(gameHistories[0].total_points_earned),
+    };
+
+    return gamePoints;
   },
 };
