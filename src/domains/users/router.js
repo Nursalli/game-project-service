@@ -48,6 +48,7 @@ const routes = {
     validation(userValidator.getMyPoints),
     userController.getMyPoints,
   ],
+  'POST: /reset-password': [validation(userValidator.resetPassword), userController.resetPassword],
 };
 
 buildRoutes(usersRouter, routes);

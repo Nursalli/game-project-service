@@ -181,7 +181,7 @@ module.exports = {
       userFirstName: user.firstName,
       badge: badgeName,
       points: totalPointsEarned ? totalPointsEarned : 0,
-      userProfilePic: user.profilePic
+      userProfilePic: user.profilePic,
     };
   },
 
@@ -314,5 +314,39 @@ module.exports = {
     };
 
     return gamePoints;
+  },
+
+  resetPassword: async (body) => {
+    const email = body.email;
+    const password = body.password;
+    const encryptedPassword = bcrypt.hashSync(password);
+
+    try {
+      const user = await User.findOne({
+        where: {
+          email: email,
+        },
+        raw: true,
+      });
+
+      if (!user) {
+        throw new AppError('Reset password failed', 404);
+      }
+
+      await User.update(
+        {
+          password: encryptedPassword,
+        },
+        {
+          where: {
+            email: email,
+          },
+        }
+      );
+
+      return { email: email };
+    } catch (err) {
+      throw new AppError('Reset password failed', 404);
+    }
   },
 };
