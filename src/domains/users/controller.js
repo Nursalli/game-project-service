@@ -128,4 +128,14 @@ module.exports = {
 
     res.json(response);
   },
+
+  resetPassword: async (req, res) => {
+    const body = req.body;
+
+    const user = await userRepository.resetPassword(body);
+
+    const response = new SuccessResponse('Success Reset Password', user);
+
+    res.json(response);
+  },
 };

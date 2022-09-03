@@ -79,4 +79,13 @@ module.exports = {
     query: z.object({}).nullish(),
     body: z.object({}).nullish(),
   }),
+
+  resetPassword: z.object({
+    params: z.object({}).nullish(),
+    query: z.object({}).nullish(),
+    body: z.object({
+      email: z.string().nullish(),
+      password: z.string().nullish(),
+    }),
+  }),
 };
