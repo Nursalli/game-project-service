@@ -49,6 +49,12 @@ const routes = {
     userController.getMyPoints,
   ],
   'POST: /reset-password': [validation(userValidator.resetPassword), userController.resetPassword],
+  'GET: /histories/:userId': [
+    authentication,
+    authorization(['Admin', 'Player']),
+    validation(userValidator.gethistories),
+    userController.getHistories,
+  ],
 };
 
 buildRoutes(usersRouter, routes);
