@@ -349,4 +349,30 @@ module.exports = {
       throw new AppError('Reset password failed', 404);
     }
   },
+
+  getHistories: async (playerId) => {
+    const gameHistories = await GameHistory.findAll({
+      where: {
+        player_id: playerId,
+      },
+      order: [['played_at', 'DESC']],
+      limit: 30,
+      attributes: ['points_earned', 'played_at', 'status'],
+      raw: true,
+      include: ['game'],
+    });
+
+    const myHistories = gameHistories.map(function (gameHistory) {
+      const myHistory = {
+        gameName: gameHistory['game.title'],
+        gameThumbnail: gameHistory['game.thumbnail'],
+        pointsEarned: gameHistory.points_earned,
+        playedAt: gameHistory.played_at,
+        status: gameHistory.status,
+      };
+      return myHistory;
+    });
+
+    return myHistories;
+  },
 };

@@ -138,4 +138,14 @@ module.exports = {
 
     res.json(response);
   },
+
+  getHistories: async (req, res) => {
+    const playerId = req.params.userId;
+
+    const result = await userRepository.getHistories(playerId);
+
+    const response = new SuccessResponse('Success Get Histories of User', result);
+
+    res.json(response);
+  },
 };

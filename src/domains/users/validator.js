@@ -88,4 +88,12 @@ module.exports = {
       password: z.string().nullish(),
     }),
   }),
+
+  gethistories: z.object({
+    params: z.object({
+      userId: z.string().regex(/^\d+$/).transform(Number),
+    }),
+    query: z.object({}).nullish(),
+    body: z.object({}).nullish(),
+  }),
 };
