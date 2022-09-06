@@ -3,7 +3,7 @@ const gameRepository = require('./repository');
 
 module.exports = {
   landing: async (req, res) => {
-    const numberOfGames = 6;
+    const numberOfGames = 3;
     const games = await gameRepository.list(numberOfGames);
     const response = new SuccessResponse('Success List Games Landing', games);
 
