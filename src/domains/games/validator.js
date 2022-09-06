@@ -27,10 +27,19 @@ module.exports = {
       id: z.number(),
       idHistory: z.number(),
       status: z.string(),
-      metaData: z.object({
-        playerChoice: z.string(),
-        comChoice: z.string(),
-      }),
+      metaData: z
+        .object({
+          playerChoice: z.string(),
+          comChoice: z.string(),
+        })
+        .or(
+          z.array(
+            z.object({
+              playerChoice: z.string(),
+              comChoice: z.string(),
+            })
+          )
+        ),
     }),
   }),
 };
