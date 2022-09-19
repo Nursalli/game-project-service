@@ -40,4 +40,38 @@ describe('user.controller.register', () => {
 
     expect(mockRes.json).toBeCalledWith(expectedSuccessResponse);
   });
+
+  it('sad flow', async () => {
+    const mockRes = {
+      json: jest.fn(),
+    };
+
+    const requestBody = {
+      email: 'email@binar.com',
+      firstName: 'nama',
+      lastName: 'saya',
+      password: 'password',
+    };
+
+    const mockRegisterRepoReturnVal = {
+      password: 'hashed',
+      success: true,
+    };
+
+    const registerRepository = jest.spyOn(repository, 'register');
+    registerRepository.mockImplementationOnce(() => {
+      throw new Error('sebuah error!!!');
+    });
+
+    const fn = async () => {
+      await register(
+        {
+          body: requestBody,
+        },
+        mockRes
+      );
+    };
+
+    expect(fn).rejects.toThrowError();
+  });
 });
